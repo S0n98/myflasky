@@ -1,0 +1,47 @@
+2020-11-04 19:15:02,980 ERROR: Exception on /index [POST] [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/routes.py", line 30, in index
+    if language == 'UNKNOWN' or len(language) > 5:
+TypeError: object of type 'Detected' has no len()
+2020-11-04 19:17:00,307 ERROR: Exception on /index [POST] [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/routes.py", line 29, in index
+    language = tran.detect('form.post.data')
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/googletrans/client.py", line 255, in detect
+    data = self._translate(text, 'en', 'auto', kwargs)
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/googletrans/client.py", line 78, in _translate
+    token = self.token_acquirer.do(text)
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/googletrans/gtoken.py", line 194, in do
+    self._update()
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/googletrans/gtoken.py", line 62, in _update
+    code = self.RE_TKK.search(r.text).group(1).replace('var ', '')
+AttributeError: 'NoneType' object has no attribute 'group'
+2020-11-04 19:17:07,711 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:53]
