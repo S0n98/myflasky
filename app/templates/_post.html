@@ -1,29 +1,43 @@
 <table class="table table-hover">
         <tr>
-            <td width="70px">
+            <td width=70px>
                 <a href="{{ url_for('user', username=post.author.username) }}">
-                    <img src="{{ post.author.avatar(70) }}" />
+                    <img width="70px" src="{{ post.author.avatar(70) }}" />
                 </a>
             </td>
             <td>
                 {% set user_link %}
-                <a href="{{ url_for('user', username=post.author.username) }}">
-                    {{ post.author.username }}
-                </a>
+                    <span class="user_popup">
+                        <a href="{{ url_for('user', username=post.author.username) }}">
+                            {{ post.author.username }}
+                        </a>
+                    </span>
                 {% endset %}
                 {{ _('%(username)s said %(when)s',
                     username=user_link, when=moment(post.timestamp).fromNow()) }}
-                <br>
-                <span id="post{{ post.id }}">{{ post.body }}</span>
+                {% if current_user.username == post.author.username %}
+                <div id="post_option{{ post.id }}" style="display: inline;">
+                <button type="button" class="btn btn-default pull-right" data-toggle="tooltip" title="Delete" onclick="deletePost('#post_option{{ post.id }}', '{{ post.id }}', '{{ post.body }}', '{{ post.language }}', '{{ g.locale }}')">
+                    <span class="glyphicon glyphicon glyphicon-trash" ></span>
+                </button>
+                <button type="button" class="btn btn-default pull-right" style="margin-right: 5px;" data-toggle="tooltip" title="Edit" onclick="editPost('#post_option{{ post.id }}', '{{ post.id }}', '{{ post.body }}', '{{ post.language }}', '{{ g.locale }}')">
+                    <span class="glyphicon glyphicon-pencil" ></span>
+                </button>
+                </div>
+                {% endif %}
+                <hr>
+                <div id="post_body{{ post.id }}">
+                <span id="post{{ post.id }}" style="font-size: 1.2em;">{{ post.body }}</span>
                 {% if post.language and post.language != g.locale %}
-                <br><br>
-                <span id="translation{{ post.id }}">
+                <br>
+                <span id="translation{{ post.id }}" style="font-size: 0.9em;">
                     <a href="javascript:translate(
                                 '#post{{ post.id }}',
                                 '#translation{{ post.id }}',
                                 '{{ post.language }}',
                                 '{{ g.locale }}');">{{ _('Translate') }}</a>
                 </span>
+                </div>
                 {% endif %}
             </td>
         </tr>

@@ -204,11 +204,11 @@ msgstr "Quên mật khẩu của bạn?"
 
 #: app/templates/login.html:15
 msgid "Click to Reset It"
-msgstr "Nhân để đặt lại nó"
+msgstr "Đặt lại mật khẩu"
 
 #: app/templates/reset_password.html:5
 msgid "Reset Your Password"
-msgstr "Đặt lại mạt khẩu của bạn"
+msgstr "Đặt lại mật khẩu của bạn"
 
 #: app/templates/reset_password_request.html:5
 msgid "Reset Password"

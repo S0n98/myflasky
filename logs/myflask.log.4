@@ -1,4 +1,4 @@
-2020-10-31 13:44:35,639 ERROR: Exception on /index [GET] [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/app.py:1892]
+2020-11-04 19:15:02,980 ERROR: Exception on /index [POST] [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/app.py:1892]
 Traceback (most recent call last):
   File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -14,28 +14,10 @@ Traceback (most recent call last):
     return self.view_functions[rule.endpoint](**req.view_args)
   File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
     return func(*args, **kwargs)
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/routes.py", line 21, in index
-    return render_template('index.html', title='Home', posts=posts, form=form)
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/templating.py", line 138, in render_template
-    ctx.app.jinja_env.get_or_select_template(template_name_or_list),
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/jinja2/environment.py", line 930, in get_or_select_template
-    return self.get_template(template_name_or_list, parent, globals)
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/jinja2/environment.py", line 883, in get_template
-    return self._load_template(name, self.make_globals(globals))
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/jinja2/environment.py", line 857, in _load_template
-    template = self.loader.load(self, name, globals)
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/jinja2/loaders.py", line 127, in load
-    code = environment.compile(source, name, filename)
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/jinja2/environment.py", line 638, in compile
-    self.handle_exception(source=source_hint)
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/jinja2/environment.py", line 832, in handle_exception
-    reraise(*rewrite_traceback_stack(source=source))
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/jinja2/_compat.py", line 28, in reraise
-    raise value.with_traceback(tb)
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/templates/index.html", line 16, in template
-    {% endif %}
-jinja2.exceptions.TemplateSyntaxError: Encountered unknown tag 'endif'. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
-2020-10-31 13:44:36,363 ERROR: Exception on /index [GET] [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/app.py:1892]
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/routes.py", line 30, in index
+    if language == 'UNKNOWN' or len(language) > 5:
+TypeError: object of type 'Detected' has no len()
+2020-11-04 19:17:00,307 ERROR: Exception on /index [POST] [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/app.py:1892]
 Traceback (most recent call last):
   File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -51,24 +33,15 @@ Traceback (most recent call last):
     return self.view_functions[rule.endpoint](**req.view_args)
   File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
     return func(*args, **kwargs)
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/routes.py", line 21, in index
-    return render_template('index.html', title='Home', posts=posts, form=form)
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/templating.py", line 138, in render_template
-    ctx.app.jinja_env.get_or_select_template(template_name_or_list),
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/jinja2/environment.py", line 930, in get_or_select_template
-    return self.get_template(template_name_or_list, parent, globals)
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/jinja2/environment.py", line 883, in get_template
-    return self._load_template(name, self.make_globals(globals))
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/jinja2/environment.py", line 857, in _load_template
-    template = self.loader.load(self, name, globals)
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/jinja2/loaders.py", line 127, in load
-    code = environment.compile(source, name, filename)
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/jinja2/environment.py", line 638, in compile
-    self.handle_exception(source=source_hint)
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/jinja2/environment.py", line 832, in handle_exception
-    reraise(*rewrite_traceback_stack(source=source))
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/jinja2/_compat.py", line 28, in reraise
-    raise value.with_traceback(tb)
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/templates/index.html", line 16, in template
-    {% endif %}
-jinja2.exceptions.TemplateSyntaxError: Encountered unknown tag 'endif'. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/routes.py", line 29, in index
+    language = tran.detect('form.post.data')
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/googletrans/client.py", line 255, in detect
+    data = self._translate(text, 'en', 'auto', kwargs)
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/googletrans/client.py", line 78, in _translate
+    token = self.token_acquirer.do(text)
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/googletrans/gtoken.py", line 194, in do
+    self._update()
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/googletrans/gtoken.py", line 62, in _update
+    code = self.RE_TKK.search(r.text).group(1).replace('var ', '')
+AttributeError: 'NoneType' object has no attribute 'group'
+2020-11-04 19:17:07,711 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:53]

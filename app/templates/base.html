@@ -1,11 +1,11 @@
 {% extends 'bootstrap/base.html' %}
 
 {% block title %}
-    {% if title %}{{ title }} - Myflask{% else %}{{ _('Welcome to Myflask') }}{% endif %}
+    {% if title %}{{ title }} - SonBlog{% else %}{{ current_user.username }}{% endif %}
 {% endblock %}
 
 {% block navbar %}
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -14,19 +14,29 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ url_for('index') }}">Myflask</a>
+                <a class="navbar-brand" href="{{ url_for('index') }}">Son-blog</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ url_for('index') }}">{{ _('Home') }}</a></li>
-                    <li><a href="{{ url_for('explore') }}">{{ _('Explore') }}</a></li>
-                </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if current_user.is_anonymous %}
-                    <li><a href="{{ url_for('login') }}">{{ _('Login') }}</a></li>
+                    <li><a href="{{ url_for('login') }}" data-toggle="tooltip" title="Login">
+                        <span class="glyphicon glyphicon-log-in" ></span>
+                        </a></li>
                     {% else %}
-                    <li><a href="{{ url_for('user', username=current_user.username) }}">{{ _('Profile') }}</a></li>
-                    <li><a href="{{ url_for('logout') }}">{{ _('Logout') }}</a></li>
+                    <li><a href="{{ url_for('index') }}" data-toggle="tooltip" title="Home">
+                        <span class="glyphicon glyphicon-home" ></span>
+                        </a></li>
+                    <li><a href="{{ url_for('explore') }}" data-toggle="tooltip" title="Explore">
+                        <span class="glyphicon glyphicon-globe" ></span>
+                        </a></li>
+                    <li><a href="{{ url_for('user', username=current_user.username) }}" data-toggle="tooltip" title="Profile">
+                        <span class="glyphicon glyphicon-th-list" ></span>
+                        </a>
+                    </li>
+                    <li><a href="{{ url_for('logout') }}" data-toggle="tooltip" title="Logout">
+                        <span class="glyphicon glyphicon-log-out" ></span>
+                        </a>
+                    </li>
                     {% endif %}
                 </ul>
             </div>
@@ -35,7 +45,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="container" style="margin-top: 60px; min-height: 520px;">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
@@ -47,6 +57,7 @@
         {# application content needs to be provided in the app_content block #}
         {% block app_content %}{% endblock %}
     </div>
+    <div style="font-size: small; color: gray; text-align: center;">non &copy Son-blog</div>
 {% endblock %}
 
 {% block scripts %}
@@ -66,5 +77,151 @@
                 $(destElem).text("{{ _('Error: Could not contact server.') }}");
             });
         }
-    </script
+        
+        function deletePost(postOptionElem, idPost, postBody, postLanguage, locale) {
+           $(postOptionElem).html('<button type="button" class="btn btn-default pull-right" data-toggle="tooltip" title="Cancel" onclick="cancelChange(' + idPost + ', \'' + postBody + '\', \'' + postLanguage + '\', \'' + locale + '\')">'
+           + '<span class="glyphicon glyphicon glyphicon-remove"></span>'
+           + '</button>'
+           + '<button type="button" class="btn btn-default pull-right" style="margin-right: 5px;" data-toggle="tooltip" title="Yes" onclick="confirmDelete(' + idPost + ')">'
+           + '<span class="glyphicon glyphicon-ok" ></span>'
+           + '</button>'
+           + '<p class="pull-right" style="margin-right: 5px;font-weight: bold;">Are you sure to delete this post?</p>');
+        }
+
+        function editPost(postOptionElem, idPost, postBody, postLanguage, locale) {
+           $(postOptionElem).html('<button type="button" class="btn btn-default pull-right" data-toggle="tooltip" title="Cancel" onclick="cancelChange(' + idPost + ', \'' + postBody + '\', \'' + postLanguage + '\', \'' + locale + '\')">'
+           + '<span class="glyphicon glyphicon glyphicon-remove"></span>'
+           + '</button>'
+           + '<button type="button" class="btn btn-default pull-right" style="margin-right: 5px;" data-toggle="tooltip" title="Yes" onclick="saveChange(' + idPost + ', \'' + postLanguage + '\', \'' + locale + '\')">'
+           + '<span class="glyphicon glyphicon-floppy-disk" ></span>'
+           + '</button>'
+           + '<p class="pull-right" style="margin-right: 5px;font-weight: bold;">Save your change?</p>');
+           
+           $('#post_body' + idPost).html('<div class="form-group">'
+            + '<textarea class="form-control" id="changedPost' + idPost + '" rows="3">' + postBody + '</textarea></div>')
+        } 
+
+        function cancelChange(idPost, postBody, postLanguage, locale) {
+           $('#post_option' + idPost).html('<button type="button" class="btn btn-default pull-right" data-toggle="tooltip" title="Delete" onclick="deletePost(\'#post_option' + idPost + '\', \'' + idPost + '\', \'' + postBody + '\', \'' + postLanguage + '\', \'' + locale + '\')">'
+           + '<span class="glyphicon glyphicon glyphicon-trash"></span>'
+           + '</button>'
+           + '<button type="button" class="btn btn-default pull-right" style="margin-right: 5px;" data-toggle="tooltip" title="Edit" onclick="editPost(\'#post_option' + idPost + '\', \'' + idPost + '\', \'' + postBody + '\', \'' + postLanguage + '\', \'' + locale + '\')">'
+           + '<span class="glyphicon glyphicon-pencil" ></span>'
+           + '</button>');
+           
+            var postBody = '<div id="post_body' + idPost + '">'
+                + '<span id="post' + idPost + '" style="font-size: 1.2em;">' + postBody + '</span>';
+            
+            if (postLanguage != locale) {
+                postBody += '<br>'
+                + '<span id="translation' + idPost + '" style="font-size: 0.9em;">'
+                + '<a href="javascript:translate('
+                + '\'#post' + idPost + '\','
+                + '\'#translation' + idPost + '\','
+                + '\'' + postLanguage + '\', \'' + locale +'\');">Translate</a>'
+                + '</span>'
+                + '</div>';
+            }
+
+           $('#post_body' + idPost).html(postBody);
+        }
+
+        function confirmDelete(idPost) {
+            $('#post_option' + idPost).html(
+                '<p class="pull-right" style="margin-right: 5px;font-weight: bold;">Processing ... </p>');
+
+            $('#post_body' + idPost).html('<img src="{{ url_for('static', filename='loading.gif') }}">');
+            $.post('/deletePost', {
+                id: idPost
+            }).done(function(response) {
+                $('#post_option' + idPost).html("");
+                $('#post_body' + idPost).html(
+                '<p style="margin-right: 5px;font-weight: bold;">{{ _("Your post has been deleted") }}</p>');
+            }).fail(function() {
+                $('#post_body' + idPost).text("{{ _('Something broken can not delete your post') }}");
+            });
+        }
+
+        function saveChange(idPost, postLanguage, locale) {
+            var postBody = $('#changedPost' + idPost).val()
+            $('#post_option' + idPost).html(
+                '<p class="pull-right" style="margin-right: 5px;font-weight: bold;">Processing ... </p>');
+            $('#post_body' + idPost).html('<img src="{{ url_for('static', filename='loading.gif') }}">');
+            $.post('/changePost', {
+                id: idPost,
+                body: postBody
+            }).done(function(response) {
+                $('#post_option' + idPost).html('<button type="button" class="btn btn-default pull-right" data-toggle="tooltip" title="Delete" onclick="deletePost(\'#post_option' + idPost + '\', \'' + idPost + '\', \'' + response['post_body'] + '\', \'' + response['post_lang'] + '\', \'' + locale + '\')">'
+                + '<span class="glyphicon glyphicon glyphicon-trash"></span>'
+                + '</button>'
+                + '<button type="button" class="btn btn-default pull-right" style="margin-right: 5px;" data-toggle="tooltip" title="Edit" onclick="editPost(\'#post_option' + idPost + '\', \'' + idPost + '\', \'' + response['post_body'] + '\', \'' + response['post_lang'] + '\', \'' + locale + '\')">'
+                + '<span class="glyphicon glyphicon-pencil" ></span>'
+                + '</button>');
+            
+                var changedPostBody = '<div id="post_body' + idPost + '">'
+                    + '<span id="post' + idPost + '" style="font-size: 1.2em;">' + postBody + '</span>';
+                
+                console.log(response['post_lang'] + " " + locale)
+
+                if (response['post_lang'] != locale) {
+                    changedPostBody += '<br>'
+                    + '<span id="translation' + idPost + '" style="font-size: 0.9em;">'
+                    + '<a href="javascript:translate('
+                    + '\'#post' + idPost + '\','
+                    + '\'#translation' + idPost + '\','
+                    + '\'' + response['post_lang'] + '\', \'' + locale +'\');">Translate</a>'
+                    + '</span>'
+                    + '</div>';
+                }
+
+                $('#post_body' + idPost).html(changedPostBody);
+
+            }).fail(function() {
+                $('#post_body' + idPost).text("{{ _('Something broken can not save your change') }}");
+            })
+
+        }
+        $(function() {
+            var timer = null;
+            var xhr = null;
+            $('.user_popup').hover(
+                function(event) {
+                    // mouse in event handler
+                    var elem = $(event.currentTarget);
+                    timer = setTimeout(function() {
+                        timer = null;
+                        xhr = $.ajax(
+                            '/user/' + elem.first().text().trim() + '/popup').done(
+                                function(data) {
+                                    xhr = null
+                                    elem.popover({
+                                        trigger: 'manual',
+                                        html: true,
+                                        animation: true,
+                                        container: elem,
+                                        content: data
+                                    }).popover('show');
+                                    flask_moment_render_all();
+                                }
+                            );
+                    }, 250);
+                },
+                function(event) {
+                    // mouse out event handler
+                    var elem = $(event.currentTarget);
+                    if (timer) {
+                        clearTimeout(timer);
+                        timer = null;
+                    }
+                    else if (xhr) {
+                        xhr.abort();
+                        xhr = null;
+                    }
+                    else {
+                        elem.popover('destroy');
+                    }
+                }
+            )
+        });
+    </script>
 {% endblock %}

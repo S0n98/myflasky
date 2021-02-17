@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, url_for, request, g
+from flask import render_template, flash, redirect, url_for, request, g, make_response
 from app import app, db, tran
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, EmptyForm, PostForm, ResetPasswordRequestForm, ResetPasswordForm
 from app.models import User, Post
@@ -7,10 +7,39 @@ from werkzeug.urls import url_parse
 from datetime import datetime
 from app.email import send_password_reset_email
 from flask_babel import _, get_locale
-from googletrans import Translator
+from google_trans_new import google_translator
 from flask import jsonify
 from app.translate import translate
 
+@app.route('/user/<username>/popup')
+@login_required
+def user_popup(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    form = EmptyForm()
+    return render_template('user_popup.html', user=user, form=form)
+
+@app.route('/changePost', methods=['POST'])
+@login_required
+def handle_change_post():
+    change_post = Post.query.filter_by(id=request.form['id']).first()
+    change_post.body = request.form['body']
+    language = ''
+    try:
+        detected = tran.detect(request.form['body'])
+        language = detected[0]
+    except:
+        language = ''
+    change_post.lang = language
+    db.session.commit()
+    return jsonify({'post_body': change_post.body, 'post_lang': language})
+
+@app.route('/deletePost', methods=['POST'])
+@login_required
+def handle_delete_post():
+    del_post = Post.query.filter_by(id=request.form['id']).first()
+    db.session.delete(del_post)
+    db.session.commit()
+    return "1"
 
 @app.route('/translate', methods=['POST'])
 @login_required
@@ -25,8 +54,11 @@ def translate_text():
 def index():
     form = PostForm()
     if form.validate_on_submit():
-        detected = tran.detect(form.post.data)
-        language = detected.lang
+        try:
+            detected = tran.detect(form.post.data)
+            language = detected[0]
+        except:
+            language = ''
         if language == 'UNKNOWN' or len(language) > 5:
             language = ''
         post = Post(body=form.post.data, author=current_user, language=language)
@@ -41,7 +73,7 @@ def index():
         if posts.has_next else None
     prev_url = url_for('index', page=posts.prev_num) \
         if posts.has_prev else None
-    return render_template('index.html', title='Home',
+    return render_template('index.html', title='Home', 
         posts=posts.items, form=form, next_url=next_url, prev_url=prev_url)
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -59,7 +91,9 @@ def login():
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('index')
         return redirect(url_for('index'))
-    return render_template('login.html', title='Sign In',  form=form)
+    rp = make_response(render_template('login.html', title='Sign In',  form=form))
+    rp.set_cookie('username', value='son')
+    return rp
 
 @app.route('/logout')
 def logout():
@@ -174,9 +208,15 @@ def reset_password_request():
     form = ResetPasswordRequestForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
+        flash(_('Check your email for the instruction to reset your password.'))
+        flash('*Because this\'s just a test server so we actually don\'t send any mail to anyone')
+        flash('*If you provide a valid email address you\'ll have a link to click right below this line, \
+            otherwise It will be nothing')
         if user:
-            send_password_reset_email(user)
-            flash(_('Check your email for the instruction to reset your password'))
+            #send_password_reset_email(user)
+            token = user.get_reset_password_token()
+            s = url_for('reset_password', token=token, _external=True)
+            flash(str(s))
         return redirect(url_for('login'))
     return render_template('reset_password_request.html', title='Reset Password', form=form)
 

@@ -1,4 +1,13 @@
-2020-10-31 13:44:37,174 ERROR: Exception on /index [GET] [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/app.py:1892]
+2020-11-04 19:17:15,578 ERROR: Exception on /index [POST] [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.InterfaceError: Error binding parameter 3 - probably unsupported type.
+
+The above exception was the direct cause of the following exception:
+
 Traceback (most recent call last):
   File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -14,29 +23,56 @@ Traceback (most recent call last):
     return self.view_functions[rule.endpoint](**req.view_args)
   File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
     return func(*args, **kwargs)
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/routes.py", line 21, in index
-    return render_template('index.html', title='Home', posts=posts, form=form)
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/templating.py", line 138, in render_template
-    ctx.app.jinja_env.get_or_select_template(template_name_or_list),
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/jinja2/environment.py", line 930, in get_or_select_template
-    return self.get_template(template_name_or_list, parent, globals)
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/jinja2/environment.py", line 883, in get_template
-    return self._load_template(name, self.make_globals(globals))
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/jinja2/environment.py", line 857, in _load_template
-    template = self.loader.load(self, name, globals)
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/jinja2/loaders.py", line 127, in load
-    code = environment.compile(source, name, filename)
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/jinja2/environment.py", line 638, in compile
-    self.handle_exception(source=source_hint)
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/jinja2/environment.py", line 832, in handle_exception
-    reraise(*rewrite_traceback_stack(source=source))
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/jinja2/_compat.py", line 28, in reraise
-    raise value.with_traceback(tb)
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/templates/index.html", line 16, in template
-    {% endif %}
-jinja2.exceptions.TemplateSyntaxError: Encountered unknown tag 'endif'. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
-2020-10-31 13:45:17,795 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:31]
-2020-10-31 13:45:25,339 ERROR: Exception on /explore [GET] [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/app.py:1892]
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/routes.py", line 34, in index
+    db.session.commit()
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/sqlalchemy/orm/scoping.py", line 163, in do
+    return getattr(self.registry(), name)(*args, **kwargs)
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 1042, in commit
+    self.transaction.commit()
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 504, in commit
+    self._prepare_impl()
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 483, in _prepare_impl
+    self.session.flush()
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 2523, in flush
+    self._flush(objects)
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 2664, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/sqlalchemy/util/langhelpers.py", line 69, in __exit__
+    exc_value, with_traceback=exc_tb,
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/sqlalchemy/orm/session.py", line 2624, in _flush
+    flush_context.execute()
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/sqlalchemy/orm/unitofwork.py", line 422, in execute
+    rec.execute(self)
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/sqlalchemy/orm/unitofwork.py", line 589, in execute
+    uow,
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/sqlalchemy/orm/persistence.py", line 245, in save_obj
+    insert,
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/sqlalchemy/orm/persistence.py", line 1136, in _emit_insert_statements
+    statement, params
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/sqlalchemy/sql/elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1130, in _execute_clauseelement
+    distilled_params,
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1317, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1511, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/sqlalchemy/engine/base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/sqlalchemy/engine/default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.InterfaceError: (sqlite3.InterfaceError) Error binding parameter 3 - probably unsupported type.
+[SQL: INSERT INTO post (body, timestamp, user_id, language) VALUES (?, ?, ?, ?)]
+[parameters: ('xin chào\r\n', '2020-11-04 12:17:15.577366', 1, <googletrans.models.Detected object at 0x7fe6347dd2b0>)]
+(Background on this error at: http://sqlalche.me/e/13/rvf5)
+2020-11-04 19:18:58,452 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:53]
+2020-11-04 19:19:05,833 ERROR: Exception on /index [POST] [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/app.py:1892]
 Traceback (most recent call last):
   File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -52,41 +88,15 @@ Traceback (most recent call last):
     return self.view_functions[rule.endpoint](**req.view_args)
   File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
     return func(*args, **kwargs)
-  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/routes.py", line 131, in explore
-    posts = Post.query.order_by(Post.timestamp.desc()).all()
-NameError: name 'Post' is not defined
-2020-10-31 13:49:43,355 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:31]
-2020-10-31 16:05:54,618 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:31]
-2020-10-31 16:07:32,611 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:31]
-2020-10-31 16:07:40,245 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:31]
-2020-11-01 02:51:15,307 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:50]
-2020-11-01 02:57:00,400 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:50]
-2020-11-01 03:05:53,079 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:50]
-2020-11-01 09:13:53,696 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:50]
-2020-11-01 09:15:32,172 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:50]
-2020-11-01 09:16:36,383 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:50]
-2020-11-01 21:26:59,636 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:50]
-2020-11-02 15:10:05,703 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:54]
-2020-11-02 23:15:40,008 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:56]
-2020-11-03 13:35:11,381 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:53]
-2020-11-03 13:49:30,405 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:53]
-2020-11-03 17:00:49,143 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:53]
-2020-11-03 17:01:04,503 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:53]
-2020-11-03 19:33:21,178 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:53]
-2020-11-03 19:34:00,305 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:53]
-2020-11-03 19:34:15,754 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:53]
-2020-11-03 19:52:59,740 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:53]
-2020-11-03 19:53:49,755 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:53]
-2020-11-03 19:55:42,162 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:53]
-2020-11-03 19:56:52,433 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:53]
-2020-11-03 19:57:22,528 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:53]
-2020-11-03 19:57:49,350 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:53]
-2020-11-03 19:58:44,043 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:53]
-2020-11-04 19:09:36,523 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:53]
-2020-11-04 19:09:45,598 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:53]
-2020-11-04 19:11:20,483 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:53]
-2020-11-04 19:12:10,966 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:53]
-2020-11-04 19:12:17,835 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:53]
-2020-11-04 19:12:37,663 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:53]
-2020-11-04 19:12:44,942 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:53]
-2020-11-04 19:13:39,097 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:53]
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/routes.py", line 29, in index
+    language = tran.detect('form.post.data')
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/googletrans/client.py", line 255, in detect
+    data = self._translate(text, 'en', 'auto', kwargs)
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/googletrans/client.py", line 78, in _translate
+    token = self.token_acquirer.do(text)
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/googletrans/gtoken.py", line 194, in do
+    self._update()
+  File "/mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/venv/lib/python3.6/site-packages/googletrans/gtoken.py", line 62, in _update
+    code = self.RE_TKK.search(r.text).group(1).replace('var ', '')
+AttributeError: 'NoneType' object has no attribute 'group'
+2020-11-04 19:19:57,027 INFO: My flask startup [in /mnt/c/Users/obama/Desktop/Py-WebCS50/Flask/myflasky/app/__init__.py:53]
