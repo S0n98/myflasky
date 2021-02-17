@@ -49,4 +49,4 @@ WTForms==2.3.3
 
 #requirements for heroku
 gunicorn
-psycopg2:Werkzeug
+psycopg2
